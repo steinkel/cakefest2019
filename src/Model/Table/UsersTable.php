@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\Ticket;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -46,6 +47,12 @@ class UsersTable extends Table
         $this->hasMany('Tickets', [
             'foreignKey' => 'user_id',
         ]);
+        $this->hasMany('OpenTickets')
+            ->setClassName(TicketsTable::class)
+            ->setForeignKey('user_id')
+            ->setConditions([
+                'OpenTickets.status' => Ticket::STATUS_OPEN
+            ]);
         $this->belongsToMany('Customers', [
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'customer_id',

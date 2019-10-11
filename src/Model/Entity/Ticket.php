@@ -20,6 +20,9 @@ use Cake\ORM\Entity;
  */
 class Ticket extends Entity
 {
+    const STATUS_OPEN = 0;
+    const STATUS_CLOSED = 1;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
