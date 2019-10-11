@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use App\Model\Entity\Traits\NormalizeNameTrait;
 use Cake\ORM\Entity;
 
 /**
@@ -25,6 +26,8 @@ use Cake\ORM\Entity;
  */
 class User extends Entity
 {
+    use NormalizeNameTrait;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -42,7 +45,7 @@ class User extends Entity
         'last_name' => true,
         'activation_date' => true,
         'active' => true,
-        'role' => true,
+        'role' => false,
         'created' => true,
         'modified' => true,
         'tickets' => true,
