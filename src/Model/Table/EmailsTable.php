@@ -78,7 +78,6 @@ class EmailsTable extends Table
                 'message' => __('Subject must contain a ticket id, like #1234'),
             ]);
 
-
         $validator
             ->scalar('body')
             ->allowEmptyString('body');
