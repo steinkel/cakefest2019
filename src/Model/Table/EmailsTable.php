@@ -6,6 +6,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Validation\Validation;
 use Cake\Validation\Validator;
 
 /**
@@ -56,14 +57,12 @@ class EmailsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('from_email')
-            ->maxLength('from_email', 255)
+            ->email('from_email')
             ->requirePresence('from_email', 'create')
             ->notEmptyString('from_email');
 
         $validator
-            ->scalar('to_email')
-            ->maxLength('to_email', 255)
+            ->email('to_email')
             ->requirePresence('to_email', 'create')
             ->notEmptyString('to_email');
 
@@ -71,7 +70,13 @@ class EmailsTable extends Table
             ->scalar('subject')
             ->maxLength('subject', 255)
             ->requirePresence('subject', 'create')
-            ->notEmptyString('subject');
+            ->notEmptyString('subject')
+            ->add('subject', 'subjectHasTicketId', [
+                'rule' => function (string $check, array $context) {
+                    return Validation::custom($check, '/.*#[0-9]+.*/');
+                },
+                'message' => __('Subject must contain a ticket id, like #1234'),
+            ]);
 
         $validator
             ->scalar('body')
