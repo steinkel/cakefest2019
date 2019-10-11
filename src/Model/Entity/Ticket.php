@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property int $user_id
  * @property string $subject
  * @property string|null $body
+ * @property int $status
  *
  * @property \App\Model\Entity\Customer $customer
  * @property \App\Model\Entity\User $user
@@ -37,6 +38,7 @@ class Ticket extends Entity
         'user_id' => true,
         'subject' => true,
         'body' => true,
+        'status' => true,
         'customer' => true,
         'user' => true,
         'emails' => true,

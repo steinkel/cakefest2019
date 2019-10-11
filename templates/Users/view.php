@@ -103,6 +103,7 @@
                             <th><?= __('User Id') ?></th>
                             <th><?= __('Subject') ?></th>
                             <th><?= __('Body') ?></th>
+                            <th><?= __('Status') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($user->tickets as $tickets) : ?>
@@ -112,6 +113,7 @@
                             <td><?= h($tickets->user_id) ?></td>
                             <td><?= h($tickets->subject) ?></td>
                             <td><?= h($tickets->body) ?></td>
+                            <td><?= h($tickets->status) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Tickets', 'action' => 'view', $tickets->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Tickets', 'action' => 'edit', $tickets->id]) ?>
