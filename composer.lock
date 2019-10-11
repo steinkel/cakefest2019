@@ -58,12 +58,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "2d8c89f33bf99d5e51c168bd55905adeeaed2f99"
+                "reference": "1a1be97dcb1f01c6fbef7d703cc68370a70c3b9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/2d8c89f33bf99d5e51c168bd55905adeeaed2f99",
-                "reference": "2d8c89f33bf99d5e51c168bd55905adeeaed2f99",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/1a1be97dcb1f01c6fbef7d703cc68370a70c3b9d",
+                "reference": "1a1be97dcb1f01c6fbef7d703cc68370a70c3b9d",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +143,7 @@
                 "rapid-development",
                 "validation"
             ],
-            "time": "2019-10-09T01:45:02+00:00"
+            "time": "2019-10-10T17:25:48+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -704,16 +704,16 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "2.1.4",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "a16378c4db99be661afc76805242281603d20a7c"
+                "reference": "6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/a16378c4db99be661afc76805242281603d20a7c",
-                "reference": "a16378c4db99be661afc76805242281603d20a7c",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c",
+                "reference": "6dcf9e760a6b476f3e9d80abbc9ce9c4aa921f9c",
                 "shasum": ""
             },
             "require": {
@@ -767,7 +767,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2019-10-08T20:08:44+00:00"
+            "time": "2019-10-10T17:38:20+00:00"
         },
         {
             "name": "zendframework/zend-httphandlerrunner",
@@ -991,12 +991,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp-codesniffer.git",
-                "reference": "9e54566dce2a09f924ebaa12945837ffc6df025a"
+                "reference": "0e61e19c5954548fbc2dd7ecef1ee96bdcd10e5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp-codesniffer/zipball/9e54566dce2a09f924ebaa12945837ffc6df025a",
-                "reference": "9e54566dce2a09f924ebaa12945837ffc6df025a",
+                "url": "https://api.github.com/repos/cakephp/cakephp-codesniffer/zipball/0e61e19c5954548fbc2dd7ecef1ee96bdcd10e5e",
+                "reference": "0e61e19c5954548fbc2dd7ecef1ee96bdcd10e5e",
                 "shasum": ""
             },
             "require": {
@@ -1029,7 +1029,7 @@
                 "codesniffer",
                 "framework"
             ],
-            "time": "2019-10-02T08:52:17+00:00"
+            "time": "2019-10-09T19:49:03+00:00"
         },
         {
             "name": "cakephp/debug_kit",
