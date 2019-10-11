@@ -75,6 +75,11 @@ class TicketsTable extends Table
             ->scalar('body')
             ->allowEmptyString('body');
 
+        $validator
+            ->integer('status')
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
+
         return $validator;
     }
 

@@ -34,6 +34,10 @@
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($ticket->id) ?></td>
                 </tr>
+                <tr>
+                    <th><?= __('Status') ?></th>
+                    <td><?= $this->Number->format($ticket->status) ?></td>
+                </tr>
             </table>
             <div class="text">
                 <strong><?= __('Body') ?></strong>

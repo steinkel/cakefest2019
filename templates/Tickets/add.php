@@ -21,6 +21,7 @@
                     echo $this->Form->control('user_id', ['options' => $users]);
                     echo $this->Form->control('subject');
                     echo $this->Form->control('body');
+                    echo $this->Form->control('status');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

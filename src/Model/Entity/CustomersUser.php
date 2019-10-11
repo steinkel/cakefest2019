@@ -14,8 +14,8 @@ use Cake\ORM\Entity;
  * @property int|null $assigned_by_user
  * @property \Cake\I18n\FrozenTime|null $assigned_date
  *
- * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Customer $customer
+ * @property \App\Model\Entity\User $user
  */
 class CustomersUser extends Entity
 {
@@ -33,7 +33,7 @@ class CustomersUser extends Entity
         'user_id' => true,
         'assigned_by_user' => true,
         'assigned_date' => true,
-        'user' => true,
         'customer' => true,
+        'user' => true,
     ];
 }
