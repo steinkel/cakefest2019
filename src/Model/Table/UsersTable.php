@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Entity\Ticket;
+use App\Model\Entity\User;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -87,6 +88,25 @@ class UsersTable extends Table
             ->scalar('password')
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
+            ->add('password', [
+                'minLengthForAdmins' => [
+                    'rule' => ['minLength', 9],
+                    'message' => __('Admins password length must be 9+ characters'),
+                    'on' => function (array $context) {
+                        $role = $context['data']['role'] ?? null;
+
+                        return $role === 'admin';
+                    }
+                ],
+                'atLeast1Number' => [
+                    'rule' => ['custom', '/.*\d+.*/'],
+                    'message' => __('At least 1 number'),
+                ],
+                'atLeast1Capital' => [
+                    'rule' => ['custom', '/.*[A-Z]+.*/'],
+                    'message' => __('At least 1 capital letter'),
+                ]
+            ])
             ->notEmptyString('password');
 
         $validator
@@ -110,7 +130,12 @@ class UsersTable extends Table
         $validator
             ->scalar('role')
             ->maxLength('role', 255)
-            ->notEmptyString('role');
+            ->notEmptyString('role')
+            ->inList('role', User::ROLES, __(
+                'Role is not valid, valid options: {0}',
+                implode(',', User::ROLES
+                )
+            ));
 
         return $validator;
     }

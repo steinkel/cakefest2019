@@ -28,6 +28,10 @@ class User extends Entity
 {
     use NormalizeNameTrait;
 
+    const ROLE_ADMIN = 'admin';
+    const ROLE_USER = 'user';
+    const ROLES = [self::ROLE_ADMIN, self::ROLE_USER];
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
