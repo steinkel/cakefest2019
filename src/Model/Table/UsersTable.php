@@ -97,10 +97,14 @@ class UsersTable extends Table
                         return $role === 'admin';
                     }
                 ],
-                'AtLeast1Number' => [
+                'atLeast1Number' => [
                     'rule' => ['custom', '/.*\d+.*/'],
-                    'message' => __('At least 1 number required'),
+                    'message' => __('At least 1 number'),
                 ],
+                'atLeast1Capital' => [
+                    'rule' => ['custom', '/.*[A-Z]+.*/'],
+                    'message' => __('At least 1 capital letter'),
+                ]
             ])
             ->notEmptyString('password');
 
