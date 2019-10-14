@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Entity\Ticket;
+use App\Model\Entity\User;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -129,7 +130,12 @@ class UsersTable extends Table
         $validator
             ->scalar('role')
             ->maxLength('role', 255)
-            ->notEmptyString('role');
+            ->notEmptyString('role')
+            ->inList('role', User::ROLES, __(
+                'Role is not valid, valid options: {0}',
+                implode(',', User::ROLES
+                )
+            ));
 
         return $validator;
     }
