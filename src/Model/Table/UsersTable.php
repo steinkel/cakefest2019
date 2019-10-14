@@ -87,6 +87,17 @@ class UsersTable extends Table
             ->scalar('password')
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
+            ->add('password', [
+                'minLengthForAdmins' => [
+                    'rule' => ['minLength', 9],
+                    'message' => __('Admins password length must be 9+ characters'),
+                    'on' => function (array $context) {
+                        $role = $context['data']['role'] ?? null;
+
+                        return $role === 'admin';
+                    }
+                ],
+            ])
             ->notEmptyString('password');
 
         $validator
