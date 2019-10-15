@@ -42,3 +42,4 @@ nbproject/*
 # Sass preprocessor
 .sass-cache/
 .php_cs.cache
+composer.lock
