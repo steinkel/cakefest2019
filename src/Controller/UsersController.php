@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
+use Cake\Log\Log;
 
 /**
  * Users Controller
@@ -117,6 +118,10 @@ class UsersController extends AppController
 
     public function login()
     {
-        dd('Coming soon...');
+        $this->request->allowMethod(['get', 'post']);
+        if ($this->request->is('post')) {
+            Log::debug('Login attempt for user ' . $this->request->getData('username'));
+            dd($this->request->getData());
+        }
     }
 }
