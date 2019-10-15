@@ -115,7 +115,7 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function login() : ?Response
+    public function login()
     {
         dd('Coming soon...');
     }
