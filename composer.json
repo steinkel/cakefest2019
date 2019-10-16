@@ -9,7 +9,8 @@
         "cakephp/authentication": "2.x-dev",
         "cakephp/cakephp": "4.x-dev",
         "cakephp/plugin-installer": "^1.0",
-        "mobiledetect/mobiledetectlib": "2.*"
+        "mobiledetect/mobiledetectlib": "2.*",
+        "php-imap/php-imap": "^3.0"
     },
     "require-dev": {
         "cakephp/bake": "4.x-dev",

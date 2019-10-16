@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Service\Imap;
+
 /**
  * Emails Controller
  *
@@ -12,6 +14,13 @@ namespace App\Controller;
  */
 class EmailsController extends AppController
 {
+    public function update()
+    {
+        $imap = new Imap();
+        $imap->readMailbox();
+        return $this->redirect(['action' => 'index']);
+    }
+
     /**
      * Index method
      *
