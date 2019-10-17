@@ -162,5 +162,4 @@ class UsersController extends AppController
 
         dd($query->toArray());
     }
-
 }
