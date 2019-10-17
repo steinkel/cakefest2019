@@ -110,4 +110,15 @@ class TicketsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function my()
+    {
+        $query = $this->Tickets->find()
+            ->contain(['Customers', 'Users'])
+            ->where(['Tickets.user_id' => $this->Authentication->getIdentityData('id')])
+            ->orderDesc('Tickets.id');
+        $tickets = $this->paginate($query);
+        $this->set(compact('tickets'));
+        $this->render('index');
+    }
 }
