@@ -3,9 +3,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
+use Cake\Database\Expression\QueryExpression;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\Log\Log;
+use Cake\ORM\Query;
 
 /**
  * Users Controller
@@ -145,4 +148,19 @@ class UsersController extends AppController
             return $this->redirect('/');
         }
     }
+
+    public function example()
+    {
+        $query = $this->Users->find();
+        $query
+            ->where([
+                'role !=' => User::ROLE_ADMIN
+            ])
+            //->where($query->newExpr()->notEq('role', User::ROLE_ADMIN))
+            ->orderAsc('created')
+            ->limit(20);
+
+        dd($query->toArray());
+    }
+
 }
