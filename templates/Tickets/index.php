@@ -7,6 +7,15 @@
 <div class="tickets index content">
     <?= $this->Html->link(__('New Ticket'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Tickets') ?></h3>
+    <?php
+    echo $this->Form->create(null, [
+        'url' => ['action' => 'search'],
+    ]);
+    echo $this->Form->control('q', [
+        'label' => false,
+        'placeholder' => __('Search by subject...')]);
+    echo $this->Form->end();
+    ?>
     <div class="table-responsive">
         <table>
             <thead>

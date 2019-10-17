@@ -117,8 +117,24 @@ class TicketsController extends AppController
             ->contain(['Customers', 'Users'])
             ->where(['Tickets.user_id' => $this->Authentication->getIdentityData('id')])
             ->orderDesc('Tickets.id');
+        if ($searchQuery = $this->request->getQuery('q')) {
+            $query->where($query->newExpr()->like('Tickets.subject', '%' . $searchQuery . '%'));
+        }
         $tickets = $this->paginate($query);
         $this->set(compact('tickets'));
         $this->render('index');
+    }
+
+    public function search()
+    {
+        $this->request->allowMethod('post');
+        if ($this->request->is('post')) {
+            return $this->redirect([
+                'action' => 'my',
+                '?' => [
+                    'q' => $this->request->getData('q'),
+                ]
+            ]);
+        }
     }
 }
