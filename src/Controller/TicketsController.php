@@ -114,7 +114,7 @@ class TicketsController extends AppController
     public function my()
     {
         $query = $this->Tickets->find()
-            ->contain(['Customers', 'Users'])
+            ->contain(['Customers', 'Users', 'Emails'])
             ->where(['Tickets.user_id' => $this->Authentication->getIdentityData('id')])
             ->orderDesc('Tickets.id');
         if ($searchQuery = $this->request->getQuery('q')) {
