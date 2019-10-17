@@ -7,6 +7,15 @@
 <div class="tickets index content">
     <?= $this->Html->link(__('New Ticket'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Tickets') ?></h3>
+    <?php
+    echo $this->Form->create(null, [
+        'url' => ['action' => 'search'],
+    ]);
+    echo $this->Form->control('q', [
+        'label' => false,
+        'placeholder' => __('Search by subject...')]);
+    echo $this->Form->end();
+    ?>
     <div class="table-responsive">
         <table>
             <thead>
@@ -16,6 +25,7 @@
                     <th><?= $this->Paginator->sort('user_id') ?></th>
                     <th><?= $this->Paginator->sort('subject') ?></th>
                     <th><?= $this->Paginator->sort('status') ?></th>
+                    <th><?= __('Emails') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -27,6 +37,20 @@
                     <td><?= $ticket->has('user') ? $this->Html->link($ticket->user->id, ['controller' => 'Users', 'action' => 'view', $ticket->user->id]) : '' ?></td>
                     <td><?= h($ticket->subject) ?></td>
                     <td><?= $this->Number->format($ticket->status) ?></td>
+                    <td>
+                        <?php
+                        if ($ticket->has('emails')) {
+                            $htmlHelper = $this->Html;
+                            foreach ($ticket->get('emails') as $email) {
+                                echo $this->Html->tag('div', $this->Html->link($email->get('subject'), [
+                                        'controller' => 'Emails',
+                                        'action' => 'view',
+                                        $email->get('id'),
+                                    ]));
+                            }
+                        }
+                        ?>
+                    </td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $ticket->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $ticket->id]) ?>
