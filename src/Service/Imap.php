@@ -53,6 +53,8 @@ class Imap
             'body' => $mail->textPlain,
         ]);
 
+        $this->Emails->classify($emailEntity);
+
         if (!$this->Emails->save($emailEntity)) {
             Log::warning(sprintf('Unable to save email: %s', json_encode($emailEntity->getErrors())));
         }
