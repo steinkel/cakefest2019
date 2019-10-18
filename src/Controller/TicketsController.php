@@ -113,13 +113,10 @@ class TicketsController extends AppController
 
     public function my()
     {
-        $query = $this->Tickets->find()
-            ->contain(['Customers', 'Users', 'Emails'])
-            ->where(['Tickets.user_id' => $this->Authentication->getIdentityData('id')])
-            ->orderDesc('Tickets.id');
-        if ($searchQuery = $this->request->getQuery('q')) {
-            $query->where($query->newExpr()->like('Tickets.subject', '%' . $searchQuery . '%'));
-        }
+        $query = $this->Tickets->find('mySearch', [
+            'userId' => $this->Authentication->getIdentityData('id'),
+            'searchQuery' => $this->request->getQuery('q'),
+        ]);
         $tickets = $this->paginate($query);
         $this->set(compact('tickets'));
         $this->render('index');

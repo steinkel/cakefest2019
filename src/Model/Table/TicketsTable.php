@@ -97,4 +97,29 @@ class TicketsTable extends Table
 
         return $rules;
     }
+
+    public function findMySearch(Query $query, array $options): Query
+    {
+        $userId = $options['userId'] ?? null;
+        $searchQuery = $options['searchQuery'] ?? null;
+
+        if (!$userId) {
+            throw new \OutOfBoundsException('Option userId is required');
+        }
+
+        $query
+            ->contain(['Customers', 'Users', 'Emails'])
+            ->where([
+                $this->aliasField('user_id') => $userId
+            ])
+            ->orderDesc($this->aliasField('id'));
+
+        if ($searchQuery) {
+            $likeExpr = $query->newExpr()
+                ->like($this->aliasField('subject'), '%' . $searchQuery . '%');
+            $query->where($likeExpr);
+        }
+
+        return $query;
+    }
 }
