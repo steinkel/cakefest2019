@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\Email;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -97,5 +98,16 @@ class EmailsTable extends Table
         $rules->add($rules->existsIn(['ticket_id'], 'Tickets'));
 
         return $rules;
+    }
+
+    public function classify(Email $email) : void
+    {
+        $subject = $email->get('subject');
+        preg_match("/.*#([0-9]+).*/", $subject, $match);
+        $ticketId = $match[1] ?? null;
+
+        if ($ticketId) {
+            $email->set('ticket_id', $ticketId);
+        }
     }
 }
