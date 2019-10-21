@@ -8,6 +8,7 @@ use Cake\Database\Expression\QueryExpression;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\Log\Log;
+use Cake\Mailer\MailerAwareTrait;
 use Cake\ORM\Query;
 
 /**
@@ -19,6 +20,8 @@ use Cake\ORM\Query;
  */
 class UsersController extends AppController
 {
+    use MailerAwareTrait;
+
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
@@ -65,7 +68,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
-
+                $this->getMailer('User')->send('welcome', [$user]);
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
