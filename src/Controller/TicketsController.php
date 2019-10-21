@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Ticket;
+
 /**
  * Tickets Controller
  *
@@ -53,6 +55,7 @@ class TicketsController extends AppController
         $ticket = $this->Tickets->newEmptyEntity();
         if ($this->request->is('post')) {
             $ticket = $this->Tickets->patchEntity($ticket, $this->request->getData());
+            $ticket->set('user_id', $this->Authentication->getIdentityData('id'));
             if ($this->Tickets->save($ticket)) {
                 $this->Flash->success(__('The ticket has been saved.'));
 
@@ -62,7 +65,8 @@ class TicketsController extends AppController
         }
         $customers = $this->Tickets->Customers->find('list', ['limit' => 200]);
         $users = $this->Tickets->Users->find('list', ['limit' => 200]);
-        $this->set(compact('ticket', 'customers', 'users'));
+        $statuses = $ticket->get('statusList');
+        $this->set(compact('ticket', 'customers', 'users', 'statuses'));
     }
 
     /**

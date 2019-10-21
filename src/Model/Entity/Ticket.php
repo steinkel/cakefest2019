@@ -43,4 +43,12 @@ class Ticket extends Entity
         'user' => true,
         'emails' => true,
     ];
+
+    protected function _getStatusList(): array
+    {
+        return [
+            static::STATUS_OPEN => __('Open'),
+            static::STATUS_CLOSED => __('Closed'),
+        ];
+    }
 }
