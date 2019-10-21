@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\Datasource\EntityInterface;
+use Cake\Event\EventInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -121,5 +123,22 @@ class TicketsTable extends Table
         }
 
         return $query;
+    }
+
+    public function beforeMarshal(EventInterface $event, \ArrayObject $data, \ArrayObject $options)
+    {
+        $customerId = $data['customer_id'] ?? null;
+        $customer = $data['customer'] ?? null;
+
+        if ($customerId && !empty($customer)) {
+            unset($data['customer']);
+        }
+    }
+
+    public function afterSave(EventInterface $event, EntityInterface $entity, \ArrayObject $options)
+    {
+        if ($entity->isNew()) {
+            return $this->Customers->assignToUser((int)$entity->get('customer_id'), (int)$entity->get('user_id'));
+        }
     }
 }

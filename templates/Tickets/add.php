@@ -15,13 +15,21 @@
         <div class="tickets form content">
             <?= $this->Form->create($ticket) ?>
             <fieldset>
-                <legend><?= __('Add Ticket') ?></legend>
+                <legend><?= __('Select Customer') ?></legend>
                 <?php
-                    echo $this->Form->control('customer_id', ['options' => $customers]);
-                    echo $this->Form->control('user_id', ['options' => $users]);
+                    echo $this->Form->control('customer_id', [
+                        'empty' => __('New Customer, please enter email below...'),
+                        'options' => $customers
+                    ]);
+                    echo $this->Form->control('customer.email', [
+                        'required' => false,
+                    ]);
+                    ?>
+                <legend><?= __('Ticket') ?></legend>
+                <?php
                     echo $this->Form->control('subject');
                     echo $this->Form->control('body');
-                    echo $this->Form->control('status');
+                    echo $this->Form->control('status', ['options' => $statuses]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

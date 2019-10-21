@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\ORM\Association\BelongsToMany;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -46,7 +47,8 @@ class CustomersTable extends Table
             'foreignKey' => 'customer_id',
             'targetForeignKey' => 'user_id',
             'joinTable' => 'customers_users',
-        ]);
+        ])
+            ->setSaveStrategy(BelongsToMany::SAVE_APPEND);
     }
 
     /**
@@ -91,5 +93,29 @@ class CustomersTable extends Table
         $rules->add($rules->isUnique(['email']));
 
         return $rules;
+    }
+
+    public function assignToUser(int $customerId, int $userId): bool
+    {
+        $customer = $this->find()
+            ->where([$this->aliasField('id') => $customerId])
+            ->contain(['Users' => function (Query $q) use ($userId) {
+                return $q
+                    ->where([
+                        'Users.id' => $userId
+                    ]);
+            }])
+            ->firstOrFail();
+        if ($customer['users'][0]['id'] ?? null) {
+            // it's already assigned
+            return true;
+        }
+        $customer = $this->patchEntity($customer, [
+            'users' => [
+                '_ids' => [$userId]
+            ]
+        ]);
+
+        return (bool)$this->save($customer);
     }
 }
