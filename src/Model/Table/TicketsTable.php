@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Behavior\NotifyBehavior;
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
@@ -44,6 +45,8 @@ class TicketsTable extends Table
         $this->setTable('tickets');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior(NotifyBehavior::class);
 
         $this->belongsTo('Customers', [
             'foreignKey' => 'customer_id',
@@ -142,9 +145,7 @@ class TicketsTable extends Table
     {
         if ($entity->isNew()) {
             $customerId = (int)$entity->get('customer_id');
-            $assignResult = $this->Customers->assignToUser($customerId, (int)$entity->get('user_id'));
-            $customer = $this->Customers->get($customerId);
-            $this->getMailer('Ticket')->send('newTicket', [$entity, $customer]);
+            return $this->Customers->assignToUser($customerId, (int)$entity->get('user_id'));
         }
     }
 }
