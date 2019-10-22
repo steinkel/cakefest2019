@@ -5,6 +5,7 @@ namespace App\Model\Table;
 
 use Cake\Datasource\EntityInterface;
 use Cake\Event\EventInterface;
+use Cake\Mailer\MailerAwareTrait;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -28,6 +29,8 @@ use Cake\Validation\Validator;
  */
 class TicketsTable extends Table
 {
+    use MailerAwareTrait;
+
     /**
      * Initialize method
      *
@@ -138,7 +141,10 @@ class TicketsTable extends Table
     public function afterSave(EventInterface $event, EntityInterface $entity, \ArrayObject $options)
     {
         if ($entity->isNew()) {
-            return $this->Customers->assignToUser((int)$entity->get('customer_id'), (int)$entity->get('user_id'));
+            $customerId = (int)$entity->get('customer_id');
+            $assignResult = $this->Customers->assignToUser($customerId, (int)$entity->get('user_id'));
+            $customer = $this->Customers->get($customerId);
+            $this->getMailer('Ticket')->send('newTicket', [$entity, $customer]);
         }
     }
 }
